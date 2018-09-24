@@ -20,6 +20,7 @@ public class MineExplorerGui extends javax.swing.JFrame
         bl.add();
         bl.sort();
         liDisplay.setModel(bl);
+        liDisplay.setCellRenderer(new FileRenderer());
     }
     
     private DateiModell bl = new DateiModell();
