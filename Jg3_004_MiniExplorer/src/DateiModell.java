@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 
@@ -16,16 +17,31 @@ public class DateiModell extends AbstractListModel
 {
     private ArrayList<Datei> data = new ArrayList();
     
+    public void add()
+    {
+        
+        File f = new File(System.getProperty("user.dir"));
+        System.out.println(f);
+        File[] fileArray = f.listFiles();
+        
+        for(int i = 0; i < fileArray.length; i++)
+        {
+            data.add(new Datei(fileArray[i].getName()));
+        }
+        
+        fireIntervalAdded(data, 0, data.size()-1);
+    }
+    
     @Override
     public int getSize()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data.size();
     }
 
     @Override
     public Object getElementAt(int index)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data.get(index);
     }
     
 }

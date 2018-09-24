@@ -17,7 +17,11 @@ public class MineExplorerGui extends javax.swing.JFrame
     public MineExplorerGui()
     {
         initComponents();
+        bl.add();
+        liDisplay.setModel(bl);
     }
+    
+    private DateiModell bl = new DateiModell();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,12 +38,6 @@ public class MineExplorerGui extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        liDisplay.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(liDisplay);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -94,6 +92,6 @@ public class MineExplorerGui extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> liDisplay;
+    private javax.swing.JList<Datei> liDisplay;
     // End of variables declaration//GEN-END:variables
 }
