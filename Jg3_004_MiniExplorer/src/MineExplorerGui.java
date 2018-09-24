@@ -18,6 +18,7 @@ public class MineExplorerGui extends javax.swing.JFrame
     {
         initComponents();
         bl.add();
+        bl.sort();
         liDisplay.setModel(bl);
     }
     

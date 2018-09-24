@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.AbstractListModel;
 
 /*
@@ -26,10 +27,16 @@ public class DateiModell extends AbstractListModel
         
         for(int i = 0; i < fileArray.length; i++)
         {
-            data.add(new Datei(fileArray[i].getName()));
+            data.add(new Datei(fileArray[i].getName(), fileArray[i]));
         }
         
         fireIntervalAdded(data, 0, data.size()-1);
+    }
+    
+    public void sort()
+    {
+        Collections.sort(data, new FileComparer());
+        fireContentsChanged(data, 0, data.size()-1);
     }
     
     @Override
