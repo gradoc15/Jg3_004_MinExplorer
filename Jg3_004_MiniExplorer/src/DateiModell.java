@@ -16,21 +16,73 @@ import javax.swing.AbstractListModel;
  */
 public class DateiModell extends AbstractListModel
 {
+    public DateiModell()
+    {
+        ini();
+    }
+    
     private ArrayList<Datei> data = new ArrayList();
+    
+    private File actualPath;
+    
+    public void ini()
+    {
+        actualPath = new File(System.getProperty("user.dir"));
+    }
+    
+    public  void changePath(int idx)
+    {
+       actualPath = new File(data.get(idx).getAbsolutePath());
+        System.out.println("path changed --> "+actualPath.getAbsolutePath());
+    }
+    
+    public void showAll()
+    {
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+        for(Datei d : data)
+        {
+            System.out.println(d.getAbsolutePath());
+        }
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+    }
+    
     
     public void add()
     {
-        
-        File f = new File(System.getProperty("user.dir"));
-        System.out.println(f);
-        File[] fileArray = f.listFiles();
-        
-        for(int i = 0; i < fileArray.length; i++)
-        {
-            data.add(new Datei(fileArray[i].getName(), fileArray[i]));
-        }
-        
-        fireIntervalAdded(data, 0, data.size()-1);
+          data.clear();
+          
+          File[] fileArray = actualPath.listFiles();
+          File x = null;
+          
+          try
+          {
+              data.add(new Datei(actualPath.getParent(), actualPath.getParentFile(), true));
+          }
+          catch(Exception e)
+          {
+              if(actualPath.getAbsolutePath().equals("C:\\"))
+                  actualPath = new File("D:\\");
+              else if(actualPath.getAbsolutePath().equals("D:\\"))
+                  actualPath =  new File("C:\\");
+              
+              data.add(new Datei(actualPath.getAbsolutePath(), new File(actualPath.getAbsolutePath()), true));
+          }
+          
+          
+          for(int i = 0; i < fileArray.length; i++)
+          {
+              data.add(new Datei(fileArray[i].getAbsolutePath(), fileArray[i]));
+              System.out.println(fileArray[i].getAbsolutePath());
+              
+              x = fileArray[i];
+          }
+          System.out.println("++");
+          System.out.println(actualPath.getAbsolutePath());
+          System.out.println(actualPath.getParent());
+          
+          fireContentsChanged(data, 0, data.size()-1);
+
+        sort();
     }
     
     public void sort()
@@ -49,6 +101,11 @@ public class DateiModell extends AbstractListModel
     public Object getElementAt(int index)
     {
         return data.get(index);
+    }
+    
+    public String getActPath()
+    {
+        return actualPath.getAbsolutePath();
     }
     
 }

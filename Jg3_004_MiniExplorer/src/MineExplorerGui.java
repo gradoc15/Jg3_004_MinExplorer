@@ -18,9 +18,10 @@ public class MineExplorerGui extends javax.swing.JFrame
     {
         initComponents();
         bl.add();
-        bl.sort();
+//        bl.sort();
         liDisplay.setModel(bl);
         liDisplay.setCellRenderer(new FileRenderer());
+        this.setTitle(bl.getActPath());
     }
     
     private DateiModell bl = new DateiModell();
@@ -40,12 +41,35 @@ public class MineExplorerGui extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        liDisplay.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                onMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(liDisplay);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_onMouseClicked
+    {//GEN-HEADEREND:event_onMouseClicked
+        System.out.println(evt.getClickCount());
+        
+        if(evt.getClickCount() == 2)
+        {
+            
+            bl.changePath(liDisplay.getSelectedIndex());
+            bl.add();
+            
+            this.setTitle(bl.getActPath());
+        }
+        else if(evt.getClickCount() == 1)
+            bl.showAll();
+    }//GEN-LAST:event_onMouseClicked
 
     /**
      * @param args the command line arguments
