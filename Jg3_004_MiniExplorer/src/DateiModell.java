@@ -56,7 +56,7 @@ public class DateiModell extends AbstractListModel
           
           try
           {
-              data.add(new Datei(actualPath.getParent(), actualPath.getParentFile(), true));
+              data.add(new Datei(actualPath.getParent(), true));
           }
           catch(Exception e)
           {
@@ -65,7 +65,7 @@ public class DateiModell extends AbstractListModel
               else if(actualPath.getAbsolutePath().equals("D:\\"))
                   actualPath =  new File("C:\\");
               
-              data.add(new Datei(actualPath.getAbsolutePath(), new File(actualPath.getAbsolutePath()), true));
+              data.add(new Datei(actualPath.getAbsolutePath(), true));
           }
           
           
@@ -76,9 +76,7 @@ public class DateiModell extends AbstractListModel
               
               x = fileArray[i];
           }
-          System.out.println("++");
-          System.out.println(actualPath.getAbsolutePath());
-          System.out.println(actualPath.getParent());
+
           
           fireContentsChanged(data, 0, data.size()-1);
 
